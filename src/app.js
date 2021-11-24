@@ -1,5 +1,6 @@
 import express from "express";
 import { create } from "express-handlebars";
+import morgan from "morgan";
 import path from "path";
 
 import router from "./routes/index.routes";
@@ -27,6 +28,10 @@ app.engine(".hbs", exphbs.engine);
 
 // decirle a express que use la configuración de motor de plantilla
 app.set("view engine", ".hbs");
+
+// middleware: Archivo que se ejecuta antes de las rutas 
+app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: false }));
 
 // usar el archivo de rutas
 app.use(router);
