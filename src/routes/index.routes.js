@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
     // lean() -> return a plain javascript object
     // retorne objetos de js tipicos para recorrerlos facilmente
     const tasks = await Task.find().lean();
-    res.render("index", {tasks: tasks});
+    res.render("index", { tasks: tasks });
   } catch (error) {
     res.status(500).send(error);
   }
@@ -22,6 +22,25 @@ router.post("/task/add", async (req, res) => {
     res.redirect("/");
   } catch (error) {
     res.status(500).send(error);
+  }
+});
+
+router.get("/edit/:id", async(req, res) => {
+  try {
+    const task = await Task.findById(req.params.id).lean();
+    res.render("edit", { task });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.post("/edit/:id", async (req, res) => {
+  try {
+    const {id} = req.params;
+    await Task.findByIdAndUpdate(id, req.body);
+    res.redirect("/");
+  } catch (error) {
+    console.log(error)
   }
 });
 
