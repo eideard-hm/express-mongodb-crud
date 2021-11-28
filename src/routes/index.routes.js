@@ -25,7 +25,7 @@ router.post("/task/add", async (req, res) => {
   }
 });
 
-router.get("/edit/:id", async(req, res) => {
+router.get("/edit/:id", async (req, res) => {
   try {
     const task = await Task.findById(req.params.id).lean();
     res.render("edit", { task });
@@ -36,11 +36,33 @@ router.get("/edit/:id", async(req, res) => {
 
 router.post("/edit/:id", async (req, res) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     await Task.findByIdAndUpdate(id, req.body);
     res.redirect("/");
   } catch (error) {
-    console.log(error)
+    console.log(error);
+  }
+});
+
+router.get("/delete/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Task.findByIdAndDelete(id);
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/toggleDone/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const task = await Task.findById(id);
+    task.done = !task.done;
+    await task.save();
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
   }
 });
 

@@ -13,7 +13,7 @@ const TaskSchema = new Schema(
         required: true,
     },
     done: {
-        tyrpe: Boolean,
+        type: Boolean,
         default: false,
     },
   },
