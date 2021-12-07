@@ -29,7 +29,7 @@ app.engine(".hbs", exphbs.engine);
 // decirle a express que use la configuración de motor de plantilla
 app.set("view engine", ".hbs");
 
-// middleware: Archivo que se ejecuta antes de las rutas 
+// middleware: Archivo que se ejecuta antes de las rutas
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 
