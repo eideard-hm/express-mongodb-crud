@@ -36,5 +36,8 @@ app.use(express.urlencoded({ extended: false }));
 // usar el archivo de rutas
 app.use(router);
 
+// configurar el directorio publico
+app.use(express.static(path.join(__dirname, "public")));
+
 //exportar el objeto app
 export default app;
